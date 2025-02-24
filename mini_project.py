@@ -40,7 +40,7 @@ data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
 # Check if the element exists before interacting with it
 try:
-    shop = driver.find_element(By.CSS_SELECTOR,'.bubble_keyword_text')
+    shop = driver.find_elements(By.CSS_SELECTOR,'.bubble_keyword_text')
     shop.click()
     time.sleep(2)
     driver.switch_to.default_content()
