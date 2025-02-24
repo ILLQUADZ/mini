@@ -29,20 +29,8 @@ driver.get(url)
 # Continue with the rest of your script...
 time.sleep(10)  # Increased wait time
 ## modified as selector
-Advertisement = driver.find_elements(By.CSS_SELECTOR, '.dPXjn')
-data1 = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
-
-print(f"Advertisement elements found: {len(Advertisement)}")
-print(f"Data elements found: {len(data)}")
-
-if len(data) > len(Advertisement):
-    start_point_name = data[len(Advertisement)]
-    start_point_name.click()
-else:
-    print("Error: Not enough elements found in 'data'")
-    driver.quit()
-    exit(1)
-
+Ads = driver.find_elements(By.CSS_SELECTOR, '.dPXjn')
+data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 time.sleep(0.5)
 start_point_name.click()
 time.sleep(0.5)
