@@ -68,7 +68,7 @@ while True:
     last_height = new_height
 
 data = driver.find_elements(By.XPATH, '//*[@id="_pcmap_list_scroll_container"]/ul/li[1]/div[1]/div[2]/a/div/span[1]') 
-button = driver.find_element(By.XPATH, '//*[@id="app-layout"]/div[1]/div/div[2]/ul/li[1]/button/img')
+#button = driver.find_element(By.XPATH, '//*[@id="app-layout"]/div[1]/div/div[2]/ul/li[1]/button/img')
 while True:
     i = 0
     while True:
@@ -98,13 +98,13 @@ while True:
             i += 1
         except:
             break
-    if button.get_attribute("aria-disabled") == "false":
-        driver.switch_to.default_content()
-        driver.switch_to.frame("searchIframe")
-        button.click()
-        time.sleep(3)
-    else:
-        break
+   # if button.get_attribute("aria-disabled") == "false":
+   #     driver.switch_to.default_content()
+   #     driver.switch_to.frame("searchIframe")
+   #     button.click()
+   #     time.sleep(3)
+   # else:
+   #     break
 
 import csv
 with open("shop.csv", "w", newline="", encoding="CP949") as file:
