@@ -29,8 +29,8 @@ driver.get(url)
 # Continue with the rest of your script...
 time.sleep(10)  # Increased wait time
 
-Advertisement = driver.find_elements(By.CSS_SELECTOR, "dPXjn")
-data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
+Advertisement = driver.find_elements(By.CLASS_NAME, "dPXjn")
+data1 = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
 print(f"Advertisement elements found: {len(Advertisement)}")
 print(f"Data elements found: {len(data)}")
