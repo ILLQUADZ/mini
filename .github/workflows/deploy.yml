@@ -35,7 +35,7 @@ jobs:
       - name: ChromeDriver 설치
         run: |
           # Google Chrome 버전 추출
-          CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+')
+          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_VERSION" || curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
           echo "Chrome Version: $CHROME_VERSION"
           # chromedriver 버전 확인
           MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f1)
