@@ -1,7 +1,4 @@
 from selenium.webdriver.chrome.options import Options
-
-##추가
-import click
 import requests
 import os
 import selenium #셀레니움
@@ -38,7 +35,7 @@ data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 ##wait time en
 time.sleep(3)
 #이름 수정
-start_point_name.click()
+data.click()
 time.sleep(0.5)
 driver.back()
 
