@@ -1,0 +1,54 @@
+name: m_p
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  fetch_shop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Python 설정
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+
+      - name: 필요한 패키지 설치
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget curl unzip
+
+      - name: Google Chrome 설치
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install -f
+
+      - name: ChromeDriver 설치
+        run: |
+          pip install selenium==4.29.0
+          pip install webdriver-manager
+          python -m webdriver_manager.chrome
+
+      - name: 가게 정보 가져오기
+        env:
+          NAVERMAP_API_KEY_ID: ${{secrets.NAVERMAP_API_KEY_ID}}
+          NAVERMAP_API_KEY: ${{secrets.NAVERMAP_API_KEY}}
+        run: python mini_project.py
+
+      - name: 변경 사항 커밋 및 푸쉬
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add shop_distance.csv
+          git commit -m "Update naver shop data (auto)"
+          git push
