@@ -1,34 +1,56 @@
-name: Python Package using Conda
-
-on: [push]
-
+name: Fetch Seoul Weather Data # 서울 날씨 정보 수집
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 jobs:
-  build-linux:
+  fetch_shop:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.10'
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        conda install pytest
-        pytest
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v3
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+      - name: Python 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: 필요한 패키지 설치
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget curl unzip # 필수 패키지 설치
+          # Google Chrome 설치
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install -f # 의존성 해결
+      - name: ChromeDriver 설치
+        run: |
+          # Google Chrome 버전 추출
+          CHROME_VERSION=$(google-chrome-stable --version | sed -E 's/[^0-9]+([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          echo "Chrome Version: $CHROME_VERSION"
+          # chromedriver 버전 확인
+          CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          echo "ChromeDriver Version: $CHROME_DRIVER_VERSION"
+          # chromedriver 다운로드
+          wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+          # 다운로드한 chromedriver 압축 풀기
+          unzip chromedriver_linux64.zip
+          # chromedriver를 /usr/local/bin에 이동
+          sudo mv chromedriver /usr/local/bin/
+          pip install requests
+          pip install selenium
+      - name: 가게 정보 가져오기
+        env:
+          NAVERMAP_API_KEY_ID: ${{secrets.NAVERMAP_API_KEY_ID}}
+          NAVERMAP_API_KEY: ${{secrets.NAVERMAP_API_KEY}}
+        run: python mini_project.py
+      - name: 변경 사항 커밋 및 푸쉬
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add shop_distance.csv
+          git commit -m "Update naver shop data (auto)"
+          git push
