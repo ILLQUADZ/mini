@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait #Explicitly wait을 위�
 from webdriver_manager.chrome import ChromeDriverManager #크롬에서 크롤링 진행 크롬 웹 드라이버 설치시 필요
 from selenium.webdriver.support import expected_conditions as EC #브라우저에 특정 요소 상태 확인을 위해
 from bs4 import BeautifulSoup #브라우저 태그를 가져오고 파싱하기 위함
-from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException,TimeoutException #예외처리를 위한 예외들 
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException #예외처리를 위한 예외들 
 import time
 
 chrome_options = Options()
@@ -40,17 +40,18 @@ data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
 # Check if the element exists before interacting with it
 try:
-    shop = driver.find_elements(By.CSS_SELECTOR,'.bubble_keyword_text')
-    shop.click()
-    time.sleep(2)
-    driver.switch_to.default_content()
-    driver.switch_to.frame("searchIframe")
-except wb.common.exceptions.NoSuchElementException:
+    shop_elements = driver.find_elements(By.CSS_SELECTOR, '.bubble_keyword_text')
+    for shop in shop_elements:
+        shop.click()
+        time.sleep(2)
+        driver.switch_to.default_content()
+        driver.switch_to.frame("searchIframe")
+except NoSuchElementException:
     print("Error: Element with selector name 'bubble_keyword_text' not found")
     driver.quit()
     exit(1)
 
-body = driver.find_element(By.CSS_SELECTOR, '.Ryr1F')
+body = driver.find_elements(By.CSS_SELECTOR, '.Ryr1F')
 shop_name = []
 stars = []
 addresses = []
