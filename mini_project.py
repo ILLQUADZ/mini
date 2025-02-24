@@ -34,11 +34,18 @@ time.sleep(0.5)
 start_point_name.click()
 time.sleep(0.5)
 driver.back()
-shop = driver.find_element(By.CLASS_NAME, "bubble_keyword_text")
-shop.click()
-time.sleep(2)
-driver.switch_to.default_content()
-driver.switch_to.frame("searchIframe")
+
+# Check if the element exists before interacting with it
+try:
+    shop = driver.find_element(By.CLASS_NAME, "bubble_keyword_text")
+    shop.click()
+    time.sleep(2)
+    driver.switch_to.default_content()
+    driver.switch_to.frame("searchIframe")
+except wb.common.exceptions.NoSuchElementException:
+    print("Error: Element with class name 'bubble_keyword_text' not found")
+    driver.quit()
+    exit(1)
 
 body = driver.find_element(By.CLASS_NAME, "Ryr1F")
 shop_name = []
