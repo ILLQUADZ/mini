@@ -21,7 +21,14 @@ time.sleep(1)
 driver.switch_to.default_content()
 driver.switch_to.frame("searchIframe")
 Advertisement = driver.find_elements(By.CLASS_NAME, "dPXjn")
+###############
 data = driver.find_elements(By.CLASS_NAME, "YwYLL")
+if len(data) > len(Advertisement):
+    start_point_name = data[len(Advertisement)]
+    start_point_name.click()
+else:
+    print("Error: Not enough elements found in 'data'")
+###########
 start_point_name = data[len(Advertisement)]
 time.sleep(0.5)
 start_point_name.click()
