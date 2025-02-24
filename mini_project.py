@@ -1,7 +1,6 @@
 from selenium.webdriver.chrome.options import Options
 import requests
 import os
-ㄹㅇㄹ
 import selenium #셀레니움
 import pandas as pd #csv를 읽고 dataframe을 사용하기 위한 pandas
 from selenium import webdriver as wb #브라우저를 띄우고 컨트롤하기 위한 webdriver
