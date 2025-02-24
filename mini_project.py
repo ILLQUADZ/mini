@@ -34,7 +34,7 @@ data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
 ##wait time en
 time.sleep(3)
-start_point_name.click()
+start_p.click()
 time.sleep(0.5)
 driver.back()
 
