@@ -3,7 +3,9 @@ from selenium import webdriver as wb
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 import time
 # 이미지 저장하기 위해 요청 라이브러리 필요
