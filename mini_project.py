@@ -24,23 +24,10 @@ url = f"https://m.map.naver.com/search2/search.naver?query=%EC%84%9C%EC%9A%B8%EA
 driver = wb.Chrome(options=chrome_options)
 driver.get(url)
 
-    
-# Wait until the iframe is available and switch to it
-wait = WebDriverWait(driver, 20)  # Increased wait time
-time.sleep(5)  # Added wait time to ensure elements are loaded
-try:
-    wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "searchIframe")))
-except:
-    frames = driver.find_elements(By.TAG_NAME, "iframe")
-    print(f"Number of iframes on the page: {len(frames)}")
-    for frame in frames:
-        print(frame.get_attribute("name"))
-    print("Error: searchIframe not found")
-    driver.quit()
-    exit(1)
+
 
 # Continue with the rest of your script...
-time.sleep(3)  # Increased wait time
+time.sleep(10)  # Increased wait time
 
 Advertisement = driver.find_elements(By.CSS_SELECTOR, "dPXjn")
 data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
