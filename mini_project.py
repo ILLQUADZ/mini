@@ -4,6 +4,9 @@ from selenium.webdriver.chrome.options import Options
 import time
 import requests
 import os
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -15,6 +18,11 @@ start_point = "서울기술교육센터"
 url = f"https://m.map.naver.com/search2/search.naver?query=%EC%84%9C%EC%9A%B8%EA%B8%B0%EC%88%A0%EA%B5%90%EC%9C%A1%EC%84%BC%ED%84%B0&sm=hty&style=v5"
 driver = wb.Chrome(options=chrome_options)
 driver.get(url)
+###########
+wait = WebDriverWait(driver, 10)
+wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME, "searchIframe")))
+############
+
 time.sleep(3)  # Increased wait time
 driver.switch_to.default_content()
 driver.switch_to.frame("searchIframe")
