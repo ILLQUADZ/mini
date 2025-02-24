@@ -38,7 +38,8 @@ jobs:
           CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+')
           echo "Chrome Version: $CHROME_VERSION"
           # chromedriver 버전 확인
-          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION" || curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+          MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f1)
+          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_VERSION" || curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
           echo "ChromeDriver Version: $CHROME_DRIVER_VERSION"
           # chromedriver 다운로드
           wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
