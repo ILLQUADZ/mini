@@ -1,4 +1,5 @@
 name: Fetch Seoul Weather Data # 서울 날씨 정보 수집
+
 on:
   schedule:
     - cron: "0 0 * * *"
@@ -6,18 +7,22 @@ on:
   push:
     branches:
       - main
+
 jobs:
   fetch_shop:
     runs-on: ubuntu-latest
+
     steps:
       - name: 저장소 체크아웃
         uses: actions/checkout@v3
         with:
           token: ${{secrets.GITHUB_TOKEN}}
+
       - name: Python 설정
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
+
       - name: 필요한 패키지 설치
         run: |
           sudo apt-get update
@@ -26,13 +31,14 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo dpkg -i google-chrome-stable_current_amd64.deb
           sudo apt-get install -f # 의존성 해결
+
       - name: ChromeDriver 설치
         run: |
           # Google Chrome 버전 추출
           CHROME_VERSION=$(google-chrome-stable --version | sed -E 's/[^0-9]+([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
           echo "Chrome Version: $CHROME_VERSION"
           # chromedriver 버전 확인
-          CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
           echo "ChromeDriver Version: $CHROME_DRIVER_VERSION"
           # chromedriver 다운로드
           wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
@@ -40,13 +46,14 @@ jobs:
           unzip chromedriver_linux64.zip
           # chromedriver를 /usr/local/bin에 이동
           sudo mv chromedriver /usr/local/bin/
-          pip install requests
-          pip install selenium
+          pip install requests selenium geopy pandas
+
       - name: 가게 정보 가져오기
         env:
           NAVERMAP_API_KEY_ID: ${{secrets.NAVERMAP_API_KEY_ID}}
           NAVERMAP_API_KEY: ${{secrets.NAVERMAP_API_KEY}}
         run: python mini_project.py
+
       - name: 변경 사항 커밋 및 푸쉬
         run: |
           git config --global user.name "github-actions[bot]"
