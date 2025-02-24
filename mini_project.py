@@ -15,12 +15,15 @@ start_point = "서울기술교육센터"
 url = f"https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EA%B8%B0%EC%88%A0%EA%B5%90%EC%9C%A1%EC%84%BC%ED%84%B0?c=15.00,0,0,0,dh"
 driver = wb.Chrome(options=chrome_options)
 driver.get(url)
-time.sleep(1)
+time.sleep(3)  # Increased wait time
 driver.switch_to.default_content()
 driver.switch_to.frame("searchIframe")
 
 Advertisement = driver.find_elements(By.CLASS_NAME, "dPXjn")
 data = driver.find_elements(By.CLASS_NAME, "YwYLL")
+
+print(f"Advertisement elements found: {len(Advertisement)}")
+print(f"Data elements found: {len(data)}")
 
 if len(data) > len(Advertisement):
     start_point_name = data[len(Advertisement)]
@@ -73,6 +76,8 @@ while True:
             driver.switch_to.default_content()
             driver.switch_to.frame("searchIframe")
             data = driver.find_elements(By.CLASS_NAME, "TYaxT")
+            if i >= len(data):
+                break
             shop_name.append(data[i].text)
             data[i].click()
             time.sleep(2)
