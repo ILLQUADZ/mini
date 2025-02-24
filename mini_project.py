@@ -28,7 +28,7 @@ driver.get(url)
 
 # Continue with the rest of your script...
 time.sleep(10)  # Increased wait time
-
+## modified as selector
 Advertisement = driver.find_elements(By.CSS_SELECTOR, '.dPXjn')
 data1 = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
