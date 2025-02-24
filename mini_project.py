@@ -19,7 +19,7 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--remote-debugging-port=9222")
 
-start_point = "서울기술교육센터"
+start_p = "서울기술교육센터"
 url = f"https://m.map.naver.com/search2/search.naver?query=%EC%84%9C%EC%9A%B8%EA%B8%B0%EC%88%A0%EA%B5%90%EC%9C%A1%EC%84%BC%ED%84%B0&sm=hty&style=v5"
 driver = wb.Chrome(options=chrome_options)
 driver.get(url)
@@ -31,7 +31,9 @@ time.sleep(10)  # Increased wait time
 ## modified as selector
 Ads = driver.find_elements(By.CSS_SELECTOR, '.dPXjn')
 data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
-time.sleep(0.5)
+
+##wait time en
+time.sleep(3)
 start_point_name.click()
 time.sleep(0.5)
 driver.back()
