@@ -46,11 +46,11 @@ try:
     driver.switch_to.default_content()
     driver.switch_to.frame("searchIframe")
 except wb.common.exceptions.NoSuchElementException:
-    print("Error: Element with class name 'bubble_keyword_text' not found")
+    print("Error: Element with selector name 'bubble_keyword_text' not found")
     driver.quit()
     exit(1)
 
-body = driver.find_element(By.CLASS_NAME, "Ryr1F")
+body = driver.find_element(By.CSS_SELECTOR, '.Ryr1F')
 shop_name = []
 stars = []
 addresses = []
