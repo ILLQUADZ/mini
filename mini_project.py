@@ -5,7 +5,6 @@ import time
 import requests
 import os
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 chrome_options = Options()
@@ -20,7 +19,6 @@ driver = wb.Chrome(options=chrome_options)
 driver.get(url)
 ###########
 wait = WebDriverWait(driver, 10)
-wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME, "searchIframe")))
 ############
 
 time.sleep(3)  # Increased wait time
