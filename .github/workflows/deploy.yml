@@ -1,5 +1,3 @@
-
-YAML
 name: Fetch Seoul Weather Data # 서울 날씨 정보 수집
 
 on:
