@@ -27,9 +27,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget curl unzip # 필수 패키지 설치
-          # Specific Google Chrome version 설치
-          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_110.0.5481.100-1_amd64.deb
-          sudo dpkg -i google-chrome-stable_110.0.5481.100-1_amd64.deb
+          # 최신 Google Chrome 설치
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
           sudo apt-get install -f # 의존성 해결
 
       - name: ChromeDriver 설치
