@@ -33,11 +33,10 @@ Ads = driver.find_elements(By.CSS_SELECTOR, '.dPXjn')
 data = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
 
 ##wait time en
-time.sleep(3)
-#이름 수정
-data.click()
-time.sleep(0.5)
-driver.back()
+#time.sleep(3)
+#start_point_name.click()
+#time.sleep(0.5)
+#driver.back()
 
 # Check if the element exists before interacting with it
 try:
