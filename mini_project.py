@@ -12,15 +12,15 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--remote-debugging-port=9222")
 
 start_point = "서울기술교육센터"
-url = f"https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EA%B8%B0%EC%88%A0%EA%B5%90%EC%9C%A1%EC%84%BC%ED%84%B0?c=15.00,0,0,0,dh"
+url = f"https://m.map.naver.com/search2/search.naver?query=%EC%84%9C%EC%9A%B8%EA%B8%B0%EC%88%A0%EA%B5%90%EC%9C%A1%EC%84%BC%ED%84%B0&sm=hty&style=v5"
 driver = wb.Chrome(options=chrome_options)
 driver.get(url)
 time.sleep(3)  # Increased wait time
 driver.switch_to.default_content()
 driver.switch_to.frame("searchIframe")
 
-Advertisement = driver.find_elements(By.CLASS_NAME, "dPXjn")
-data = driver.find_elements(By.CLASS_NAME, "YwYLL")
+Advertisement = driver.find_elements(By.CSS_SELECTOR, '.YwYLL')
+data = driver.find_elements(By.CLASS_NAME, "item_tit _title")
 
 print(f"Advertisement elements found: {len(Advertisement)}")
 print(f"Data elements found: {len(data)}")
