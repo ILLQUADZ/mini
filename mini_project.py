@@ -67,9 +67,8 @@ while True:
         break
     last_height = new_height
 
-data = driver.find_elements(By.XPATH, '//*[@id="_pcmap_list_scroll_container"]/ul/li/div[1]/a[1]/div/div/span[1]')
-button = driver.find_element(By.XPATH, '//*[@id="app-root"]/div/div[2]/div[2]/a[7]')
-
+data = driver.find_elements(By.XPATH, '//*[@id="_pcmap_list_scroll_container"]/ul/li[1]/div[1]/div[2]/a/div/span[1]') 
+button = driver.find_element(By.XPATH, '//*[@id="app-layout"]/div[1]/div/div[2]/ul/li[1]/button/span')
 while True:
     i = 0
     while True:
