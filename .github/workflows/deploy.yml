@@ -1,3 +1,5 @@
+
+YAML
 name: Fetch Seoul Weather Data # 서울 날씨 정보 수집
 
 on:
@@ -46,13 +48,15 @@ jobs:
           unzip chromedriver_linux64.zip
           # chromedriver를 /usr/local/bin에 이동
           sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
           pip install requests selenium geopy pandas
 
       - name: 가게 정보 가져오기
         env:
           NAVERMAP_API_KEY_ID: ${{secrets.NAVERMAP_API_KEY_ID}}
           NAVERMAP_API_KEY: ${{secrets.NAVERMAP_API_KEY}}
-        run: python mini_project.py
+        run: |
+          python mini_project.py --disable-dev-shm-usage --remote-debugging-port=9222
 
       - name: 변경 사항 커밋 및 푸쉬
         run: |
