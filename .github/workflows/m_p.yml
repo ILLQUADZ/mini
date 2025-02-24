@@ -26,9 +26,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget curl unzip
-        #판다스 
-          python -m pip install --upgrade pip
-          pip install pandas selenium requests geopy
 
       - name: Google Chrome 설치
         run: |
