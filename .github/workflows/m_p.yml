@@ -26,6 +26,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget curl unzip
+        #판다스 
+          python -m pip install --upgrade pip
+          pip install pandas selenium requests geopy
 
       - name: Google Chrome 설치
         run: |
@@ -38,6 +41,9 @@ jobs:
           pip install selenium==4.29.0
           pip install webdriver-manager
           python -m webdriver_manager.chrome
+          #판다스 확실 설치
+          python -m pip install --upgrade pip
+          pip install pandas selenium requests geopy
 
       - name: 가게 정보 가져오기
         env:
